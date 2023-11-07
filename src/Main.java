@@ -4,6 +4,8 @@ import enums.Speed;
 import exceptions.checked.CharacterNotExistsException;
 import exceptions.checked.NotEnoughCharactersException;
 import exceptions.unchecked.SceneCanNotStayException;
+import interfaces.Action;
+import interfaces.Callback;
 import models.actions.HeardAction;
 import models.actions.LaughAction;
 import models.charackter.Character;
@@ -23,14 +25,17 @@ public class Main {
 
         Character mainCharacter = scene.getMainCharacter();
         scene.isSpinning(true);
+
         try {
             story.addSentence(new Sentence(scene.spin(Speed.EXTREME)));
         } catch (SceneCanNotStayException exception) {
             story.addSentence(new Sentence("Сцена почему-то не крутится :("));
         }
-        story.addSentence(new Sentence(new HeardAction("Они", new LaughAction(mainCharacter).perform()).perform()).but(new LaughAction(mainCharacter, Mood.VICTORIOUSLY, Mood.HAPPY).perform()));
+
+        story.addSentence(new Sentence(new HeardAction("Они", new LaughAction(mainCharacter).perform()).perform()).but(new LaughAction(mainCharacter, Mood.VICTORIOUSLY, Mood.HAPPY, Mood.ANGRY).perform()));
+
         try {
-            story.addSentence(new Sentence(scene.setSpeed(Speed.FAST)).that(scene.setVisionToMainGroup()));
+            story.addSentence(new Sentence(scene.setSpeed(Speed.SLOW)).that(scene.setVisionToMainGroup()));
         } catch (SceneCanNotStayException exception) {
             story.addSentence(new Sentence("Сцена почему-то не крутится :("));
         }
@@ -82,7 +87,8 @@ public class Main {
                         .build()
         );
 
-        for (int i = 1; i <= 24; i++) {
+        int groupSize = 24;
+        for (int i = 1; i <= groupSize; i++) {
             scene.addGroupParticipant(
                     new Character.Builder()
                             .setName("лесной малыш #" + i)
@@ -91,7 +97,5 @@ public class Main {
                             .build()
             );
         }
-
     }
-
 }

@@ -3,10 +3,27 @@ package models.scene;
 import java.util.Objects;
 
 public class Sentence {
-    private final String content;
+    private String content = "";
+
+    public String getContent() {
+        //
+        return content;
+    }
+    public void setContent(String value) {
+        if(value.length() == 0) return;
+        content = value;
+    }
+
+    public interface Callback {
+        String call();
+    }
 
     public Sentence(String content) {
         this.content = content;
+    }
+
+    public Sentence(Callback callback) {
+        this.content = callback.call();
     }
 
     public void print() {

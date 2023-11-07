@@ -2,10 +2,6 @@ package models.charackter;
 
 import enums.Item;
 import enums.Mood;
-import interfaces.Action;
-import models.actions.HeardAction;
-import models.actions.LaughAction;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
